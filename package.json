@@ -1,0 +1,54 @@
+{
+  "name": "al-front-end-capstone",
+  "version": "1.0.0",
+  "description": "service for booking tool/top nav header",
+  "main": "./server/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server/index.js",
+    "react-dev": "webpack -d --watch",
+    "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
+    "seed-db": "node dbhelpers/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liu-austin/al-front-end-capstone.git"
+  },
+  "author": "Austin Liu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liu-austin/al-front-end-capstone/issues"
+  },
+  "homepage": "https://github.com/liu-austin/al-front-end-capstone#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "css-loader": "^3.3.2",
+    "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^2.0.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-inlinesvg": "^1.2.0",
+    "react-redux": "^7.1.3",
+    "react-star-ratings": "^2.3.0",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "sequelize": "^5.21.2",
+    "style-loader": "^1.0.1",
+    "svg-inline-loader": "^0.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
