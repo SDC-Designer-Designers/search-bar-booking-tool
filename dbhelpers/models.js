@@ -1,7 +1,8 @@
 // jshint esversion:6
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('austinservice', 'austinliu', null, {
-    dialect: 'mysql'
+const sequelize = new Sequelize('SDCmySQLsearch', 'root', null, {
+    dialect: 'mysql',
+    logging: false
 });
 
 const BookingDate = sequelize.define('Date', {
@@ -32,8 +33,8 @@ const BookingDate = sequelize.define('Date', {
 const Listing = sequelize.define('Listing', {
   title: {
     type: Sequelize.STRING,
-    allowNull: false,
-    unique: true
+    allowNull: false
+    // unique: true
   },
   venue_type: {
     type: Sequelize.STRING,

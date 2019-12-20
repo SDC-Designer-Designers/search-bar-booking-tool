@@ -8,6 +8,8 @@
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
+    "seed-db-mysql": "node dbhelpers/mySQLseed.js",
+    "seed-db-postgres": "node dbhelpers/postgreSseed.js",
     "seed-db": "node dbhelpers/seed.js"
   },
   "repository": {
