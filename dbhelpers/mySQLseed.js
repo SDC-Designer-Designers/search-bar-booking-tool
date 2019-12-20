@@ -56,7 +56,7 @@ const Listing = require('./models').Listing;
     let k;
     let listings = [];
     let obj;
-    for (let i = 0; i < 100000; i++) {
+    for (let i = 0; i < 1000000; i++) {
       obj = {};
       let title = listingAdjectives[Math.floor(Math.random() * listingAdjectives.length)] + ' ' + listingStyles[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)];
       obj.title = title.slice(0, 1).toUpperCase() + title.slice(1);
