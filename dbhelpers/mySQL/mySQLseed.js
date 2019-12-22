@@ -1,4 +1,4 @@
-// mySQL test seed
+// mySQL test seed, depends on models.js for connection
 
 // jshint esversion:6
 const faker = require('faker');
