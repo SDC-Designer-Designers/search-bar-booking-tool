@@ -8,9 +8,9 @@
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
-    "seed-db-mysql": "node dbhelpers/mySQLseed.js",
-    "seed-db-postgres": "node dbhelpers/postgreSseed.js",
-    "seed-db": "node dbhelpers/seed.js"
+    "seed-db-mysql": "node dbhelpers/mySQL/mySQLseed.js",
+    "seed-db-postgres": "node dbhelpers/postgres/postgreSseed.js",
+    "seed-db-legacy": "node dbhelpers/mySQL/seed.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "faker": "^4.1.0",
     "morgan": "^1.9.1",
     "mysql2": "^2.0.1",
+    "pg": "^7.15.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-inlinesvg": "^1.2.0",
