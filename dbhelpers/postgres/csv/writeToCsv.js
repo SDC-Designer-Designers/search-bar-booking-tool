@@ -1,10 +1,5 @@
-const {Client} = require('pg');
-const pgConnection = 'postgressql://postgres:postgres@localhost:5432/sdcsearchpostgres';
-const db = new Client({
-  connectionString: pgConnection
-});
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const faker = require('faker');
-
 
 listingAdjectives = ['sunset roost', 'lux', 'perfect nest', 'private pool', 'lakefront', 'charming', 'family-friendly', 'secluded', 'beach front', 'relaxing', 'lake cabin', 'pine cone', 'stunning', 'gorgeous modern', 'estes mountain', 'river front', 'water front', 'charming', 'winter special', 'beautiful', 'magnificent', 'ocean view', 'mountain getaway', 'colonial', 'rustic', 'wondrous', 'perfect getaway', 'quiet', 'historical', 'modern', 'gulf front', 'relaxing river', 'summer breezes', 'enchanting rockwood', 'cowell beach', 'rustic country', 'resort', 'panoramic ocean view', 'executive mountain', 'executive beach', 'executive', 'comfortable and spacious', 'private', 'mountain lookout', 'scenic luxury', 'great escape', 'stone lodge', 'dream retreat', 'dream guesthouse', 'enchanting', 'luxury', 'lighthouse view', 'comfortable', 'bay front', 'perfect & affordable', 'beach', 'scenic', 'location, location!', 'delightful vacation', 'grand', 'large', 'beautiful contemporary', 'ocean block', 'elegant', 'breathtaking', 'new', 'riverside', 'beach bungalow', 'wild dunes', 'stargazer lodge', 'quaint & cozy', 'downtown', 'amazing views', 'centrally located', 'seaside', 'newly remodeled', 'family vacation spot', 'palm', 'luxury', 'dune', 'fine-private', 'winter views', 'summer views', 'fall views', 'spring views', 'restored', 'expansive', 'conveniently located', 'total remodel', 'hidden', 'chic', 'victorian', 'sandy pines', 'Norman Rockwell', 'stylish', 'greek', 'revival style', 'spacious', 'good value', 'at the water edge', 'designer', 'fun', 'sandcastle', 'sky ledge', 'alpine', 'free night!', 'summer beach', 'absolutely gorgeous', 'asian-inspired', 'autumn', 'wine country', 'classic', 'bayside', 'vacation', 'southwest', 'immaculate', 'island style', 'beautiful slope', 'upscale', 'vintage', 'picturesque', 'redwood retreat', 'tuscan', 'cliffside', 'foresty', 'artistic', 'paradise', 'jet luxury', 'skyline view', 'view from space', 'burning cielings', 'mirror room', 'posh', 'abstract', 'sex dungeon', 'castle', 'tiny', 'cage'];
 
@@ -23,41 +18,11 @@ years = [2019, 2020];
 
 dates = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
 
-generateBookingDates= async (listing_id) => {
-  try {
-    let bookingDates = [];
-    let date;
-    for (let i = 0; i < years.length; i++) {
-      for (let j = 0; j < datesInMonths.length; j++) {
-        for (let k = 0; k < datesInMonths[j]; k++) {
-          for (let l = 1; l < 101; l++) {
-            date = years[i] + '-' + months[j] + '-' + dates[k];
-            // date = '2020-09-17';
-            bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
-          }
-        }
-      }
-    }
-    await db.connect();
-    // console.log(db);
-    console.log('successfully connected to postgres db');
-    for (var i = 0; i < bookingDates.length; i++) {
-      await db.query(`INSERT INTO bookingdate (date, available, check_in, rate, check_out, listing_id) VALUES (${bookingDates[i]['date']}, ${bookingDates[i]['available']}, ${bookingDates[i]['check_in']}, ${bookingDates[i]['rate']}, ${bookingDates[i]['check_out']}, ${bookingDates[i]['listing_id']})`)
-      console.log(i);
-    }
-  } catch (error) {
-    console.error(error)
-  } finally {
-    await db.end();
-    console.log('connection to PG DB terminated');
-  }
-};
-
-generateListings = async () => {
+let listings = [];
+generateListings = () => {
   let k;
-  let listings = [];
   let obj;
-  for (let i = 0; i < 1000000; i++) {
+  for (let i = 0; i < 100; i++) {
     obj = {};
     let title = listingAdjectives[Math.floor(Math.random() * listingAdjectives.length)] + ' ' + listingStyles[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)];
     obj.title = title.slice(0, 1).toUpperCase() + title.slice(1);
@@ -77,22 +42,35 @@ generateListings = async () => {
     obj.pic = `https://c8.alamy.com/comp/EPF1YW/nun-with-handgun-isolated-on-white-EPF1YW.jpg`;
     listings.push(obj);
   }
-  // console.log(listings);
-  Listing.sync({force: true})
-    .then( async () => {
-      // Listing.bulkCreate(listings, {validate: true})
-      try {
-        for (var i = 0; i < listings.length; i++) {
-          await Listing.create(listings[i]);
-          console.log(i);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    })
-    .then(() => console.log('Listings created.'))
-    .catch(err => console.log('failed to create listings', err));
 };
+generateListings();
 
-// generateListings();
-// generateBookingDates();
+const csvWriter = createCsvWriter({
+  path: './dbhelpers/postgres/csv/postgresRecords.csv',
+  header: [
+    {id: 'title', title: 'TITLE'},
+    {id: 'venue_type', title: 'VENUE_TYPE'},
+    {id: 'bedrooms', title: 'BEDROOMS'},
+    {id: 'bathrooms', title: 'BATHROOMS'},
+    {id: 'sleep_capacity', title: 'SLEEP_CAPACITY'},
+    {id: 'square_feet', title: 'SQUARE_FEET'},
+    {id: 'review_overview', title: 'REVIEW_OVERVIEW'},
+    {id: 'rating', title: 'RATING'},
+    {id: 'review_number', title: 'REVIEW_NUMBER'},
+    {id: 'owner', title: 'OWNER'},
+    {id: 'cleaning_fee', title: 'CLEANING_FEE'},
+    {id: 'state', title: 'STATE'},
+    {id: 'city', title: 'CITY'},
+    {id: 'pic', title: 'PIC'},
+  ]
+});
+
+// const records = [
+//   {name: 'Bob',  lang: 'French, English'},
+//   {name: 'Mary', lang: 'English'}
+// ];
+
+csvWriter.writeRecords(listings)
+  .then(() => {
+    console.log('done writing to csv');
+  });

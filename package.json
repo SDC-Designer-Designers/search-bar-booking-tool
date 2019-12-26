@@ -10,6 +10,8 @@
     "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
     "seed-db-mysql": "node dbhelpers/mySQL/mySQLseed.js",
     "seed-db-postgres": "node dbhelpers/postgres/postgreSseed.js",
+    "write-pg-to-csv": "node dbhelpers/postgres/csv/writeToCsv.js",
+    "write-pg-csv": "psql -U postgres < ./dbhelpers/postgres/csv/writeCsvToPg.sql",
     "seed-db-legacy": "node dbhelpers/mySQL/seed.js"
   },
   "repository": {
@@ -27,6 +29,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "css-loader": "^3.3.2",
+    "csv-writer": "^1.5.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "morgan": "^1.9.1",
