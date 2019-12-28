@@ -22,4 +22,8 @@ coverage
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 
+# postgres csv file
+
+./dbhelpers/postgres/csv/postgresRecords.csv
+
 

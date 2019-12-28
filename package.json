@@ -8,11 +8,12 @@
     "start": "nodemon server/index.js",
     "react-dev": "webpack -d --watch",
     "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
+    "seed-db-austin-legacy": "node dbhelpers/mySQL/seed.js",
     "seed-db-mysql": "node dbhelpers/mySQL/mySQLseed.js",
     "seed-db-postgres": "node dbhelpers/postgres/postgreSseed.js",
-    "write-pg-to-csv": "node dbhelpers/postgres/csv/writeToCsv.js",
-    "write-csv-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeCsvToPg.sql",
-    "seed-db-legacy": "node dbhelpers/mySQL/seed.js"
+    "create-pg-db-tables": "psql -U postgres < ./dbhelpers/postgres/postgresSchema.sql",
+    "write-pg-to-csv": "node --max_old_space_size=7000 dbhelpers/postgres/csv/writeToCsv.js",
+    "write-csv-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeCsvToPg.sql"
   },
   "repository": {
     "type": "git",
