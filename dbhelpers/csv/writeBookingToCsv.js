@@ -1,6 +1,6 @@
 const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
 const fs = require('fs');
-const file = fs.createWriteStream('./dbhelpers/postgres/csv/postgresBookingRecords.csv');
+const file = fs.createWriteStream('./dbhelpers/csv/bookingRecords.csv');
 
 months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
@@ -34,6 +34,9 @@ const writeToCsv = async () => {
             bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
             console.log(m); // log which record number currently working
             m++; // increment record number
+            if (m % 5000 === 0) {
+              console.log(m)
+            }
           }
         }
       }
