@@ -8,7 +8,7 @@ CREATE DATABASE SDCsearchPostgres
 \c sdcsearchpostgres;
 
 CREATE TABLE BookingDate (
-   date INT,
+   date VARCHAR,
    available BOOLEAN NOT NULL,
    check_in BOOLEAN NOT NULL,
    rate NUMERIC(10, 2),
