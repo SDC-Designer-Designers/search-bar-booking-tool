@@ -12,8 +12,8 @@
     "seed-db-mysql": "node dbhelpers/mySQL/mySQLseed.js",
     "seed-db-postgres": "node dbhelpers/postgres/postgreSseed.js",
     "create-pg-db-tables": "psql -U postgres < ./dbhelpers/postgres/postgresSchema.sql",
-    "write-pg-to-csv": "node --max_old_space_size=7000 dbhelpers/postgres/csv/writeToCsv.js",
-    "write-csv-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeCsvToPg.sql"
+    "write-pg-listing-to-csv": "node --max_old_space_size=7000 dbhelpers/postgres/csv/writeListingToCsv.js",
+    "write-csv-listing-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeListingCsvToPg.sql"
   },
   "repository": {
     "type": "git",

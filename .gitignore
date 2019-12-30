@@ -24,6 +24,8 @@ coverage
 
 # postgres csv file
 
-./dbhelpers/postgres/csv/postgresRecords.csv
+./dbhelpers/postgres/csv/postgresListingRecords.csv
+./dbhelpers/postgres/csv/postgresBookingRecords.csv
+
 
 
