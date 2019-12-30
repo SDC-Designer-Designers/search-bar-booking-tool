@@ -1,3 +1,4 @@
+/*
 const {Client} = require('pg');
 const pgConnection = 'postgressql://postgres:postgres@localhost:5432/sdcsearchpostgres';
 const db = new Client({
@@ -96,3 +97,4 @@ generateListings = async () => {
 
 // generateListings();
 // generateBookingDates();
+*/

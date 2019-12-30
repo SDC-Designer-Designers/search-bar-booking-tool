@@ -1,5 +1,5 @@
 {
-  "name": "al-front-end-capstone",
+  "name": "ht-system-design-capstone",
   "version": "1.0.0",
   "description": "service for booking tool/top nav header",
   "main": "./server/index.js",
@@ -10,12 +10,13 @@
     "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
     "seed-db-austin-legacy": "node dbhelpers/mySQL/seed.js",
     "seed-db-mysql": "node dbhelpers/mySQL/mySQLseed.js",
-    "seed-db-postgres": "node dbhelpers/postgres/postgreSseed.js",
+    "write-listing-to-csv": "node --max_old_space_size=7000 dbhelpers/csv/writeListingToCsv.js",
+    "write-booking-to-csv": "node --max_old_space_size=7000 dbhelpers/csv/writeBookingToCsv.js",
     "create-pg-db-tables": "psql -U postgres < ./dbhelpers/postgres/postgresSchema.sql",
-    "write-pg-listing-to-csv": "node --max_old_space_size=7000 dbhelpers/postgres/csv/writeListingToCsv.js",
-    "write-csv-listing-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeListingCsvToPg.sql",
-    "write-pg-booking-to-csv": "node --max_old_space_size=7000 dbhelpers/postgres/csv/writeBookingToCsv.js",
-    "write-csv-booking-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeBookingCsvToPg.sql"
+    "write-csv-listing-to-pg": "psql -U postgres < ./dbhelpers/postgres/writeListingCsvToPg.sql",
+    "write-csv-booking-to-pg": "psql -U postgres < ./dbhelpers/postgres/writeBookingCsvToPg.sql",
+    "write-csv-listing-to-mongo": "mongoimport --db=sdcsearch --collection=listing --type=csv --headerline --file=./dbhelpers/csv/listingRecords.csv",
+    "write-csv-booking-to-mongo": "mongoimport --db=sdcsearch --collection=bookingdate --type=csv --headerline --file=./dbhelpers/csv/bookingRecords.csv"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,8 @@
     "csv-writer": "^1.5.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
+    "mongodb": "^3.4.1",
+    "mongoose": "^5.8.3",
     "morgan": "^1.9.1",
     "mysql2": "^2.0.1",
     "pg": "^7.15.1",
