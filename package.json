@@ -13,7 +13,9 @@
     "seed-db-postgres": "node dbhelpers/postgres/postgreSseed.js",
     "create-pg-db-tables": "psql -U postgres < ./dbhelpers/postgres/postgresSchema.sql",
     "write-pg-listing-to-csv": "node --max_old_space_size=7000 dbhelpers/postgres/csv/writeListingToCsv.js",
-    "write-csv-listing-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeListingCsvToPg.sql"
+    "write-csv-listing-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeListingCsvToPg.sql",
+    "write-pg-booking-to-csv": "node --max_old_space_size=7000 dbhelpers/postgres/csv/writeBookingToCsv.js",
+    "write-csv-booking-to-pg": "psql -U postgres < ./dbhelpers/postgres/csv/writeBookingCsvToPg.sql"
   },
   "repository": {
     "type": "git",

@@ -34,7 +34,7 @@ const csvStringifier = createCsvStringifier({
 
 const writeToCsv = async () => {
   let listings = [];
-  generateListings = () => {
+  const generateListings = () => {
     let k;
     let obj;
     for (let i = 0; i < 1000000; i++) {
@@ -74,7 +74,7 @@ const writeAll = async () => {
   await writeToCsv();
   await writeToCsv();
   await writeToCsv();
-  console.log('all done');
+  console.log('done writing listings to csv');
 }
 
 file.write(csvStringifier.getHeaderString()); // writes the csv header row

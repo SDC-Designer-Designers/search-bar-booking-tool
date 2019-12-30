@@ -21,31 +21,32 @@ const csvStringifier = createCsvStringifier({
   ]
 });
 
-generateBookingDates= async (listing_id) => {
-  try {
-    let bookingDates = [];
-    let date;
+const writeToCsv = async () => {
+  let bookingDates = [];
+  let date;
+  const generateBookingDates = () => {
+    let m = 1;
     for (let i = 0; i < years.length; i++) {
       for (let j = 0; j < datesInMonths.length; j++) {
         for (let k = 0; k < datesInMonths[j]; k++) {
-          for (let l = 1; l < 101; l++) {
+          for (let l = 1; l < 13700; l++) {
             date = years[i] + '-' + months[j] + '-' + dates[k];
-            // date = '2020-09-17';
             bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
+            console.log(m); // log which record number currently working
+            m++; // increment record number
           }
         }
       }
     }
-    await db.connect();
-    console.log('successfully connected to postgres db');
-    for (var i = 0; i < bookingDates.length; i++) {
-      await db.query(`INSERT INTO bookingdate (date, available, check_in, rate, check_out, listing_id) VALUES (${bookingDates[i]['date']}, ${bookingDates[i]['available']}, ${bookingDates[i]['check_in']}, ${bookingDates[i]['rate']}, ${bookingDates[i]['check_out']}, ${bookingDates[i]['listing_id']})`)
-      console.log(i);
-    }
-  } catch (error) {
-    console.error(error)
-  } finally {
-    await db.end();
-    console.log('connection to PG DB terminated');
   }
-};
+  await generateBookingDates();
+  await file.write(csvStringifier.stringifyRecords(bookingDates));
+}
+
+const writeAll = async () => {
+  await writeToCsv();
+  console.log('done writing bookings to csv');
+}
+
+file.write(csvStringifier.getHeaderString()); // writes the csv header row
+writeAll();
