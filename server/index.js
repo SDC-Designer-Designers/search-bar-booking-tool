@@ -67,15 +67,68 @@ app.get('/mlistings/:id', (req, res) => {
 });
 
 app.put('/mlistings/:id', (req, res) => {
-  Listing.update({where: {listing_id: req.params.id}})
+  Listing.update(
+    {
+      title: req.body.title,
+      venue_type: req.body.venue_type,
+      bedrooms: req.body.bedrooms,
+      bathrooms: req.body.bathrooms,
+      sleep_capacity: req.body.sleep_capacity,
+      square_feet: req.body.square_feet,
+      review_overview: req.body.sleep_capacity,
+      rating: req.body.rating,
+      review_number: req.body.review_number,
+      owner: req.body.owner,
+      cleaning_fee: req.body.cleaning_fee,
+      state: req.body.state,
+      city: req.body.city,
+      pic: req.body.pic
+    },
+    {where: {id: req.params.id}}
+  )
+  .then((results) => {
+    res.status(202).send(results)
+  })
+  .catch((err) => {
+    console.error(err)
+  })
 });
 
-app.post('/mlistings/:id', (req, res) => {
-  Listing.create({where: {listing_id: req.params.id}})
+app.post('/mlistings', (req, res) => {
+  Listing.create(
+    {
+      title: req.body.title,
+      venue_type: req.body.venue_type,
+      bedrooms: req.body.bedrooms,
+      bathrooms: req.body.bathrooms,
+      sleep_capacity: req.body.sleep_capacity,
+      square_feet: req.body.square_feet,
+      review_overview: req.body.sleep_capacity,
+      rating: req.body.rating,
+      review_number: req.body.review_number,
+      owner: req.body.owner,
+      cleaning_fee: req.body.cleaning_fee,
+      state: req.body.state,
+      city: req.body.city,
+      pic: req.body.pic
+    }
+  )
+  .then((results) => {
+    res.status(202).send(results)
+  })
+  .catch((err) => {
+    console.error(err)
+  })
 });
 
 app.delete('/mlistings/:id', (req, res) => {
-  Listing.delete({where: {listing_id: req.params.id}})
+  Listing.destroy({where: {id: req.params.id}})
+  .then((results) => {
+    res.status(204).end()
+  })
+  .catch((err) => {
+    console.error(err)
+  })
 });
 
 // app.get('/listings/search/:id', (req, res) => {

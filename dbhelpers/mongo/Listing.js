@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const listingsSchema = new mongoose.Schema({
+  id: Number, // replace this with auto incrementing value
   title: String,
   venue_type: String,
   bedrooms: Number,

@@ -15,6 +15,7 @@ listingReview = ['Great.', 'Great find.', 'Beautiful view.', 'Great bargain.', '
 
 const csvStringifier = createCsvStringifier({
   header: [
+    {id: 'id', title:'ID'},
     {id: 'title', title: 'TITLE'},
     {id: 'venue_type', title: 'VENUE_TYPE'},
     {id: 'bedrooms', title: 'BEDROOMS'},
@@ -32,14 +33,18 @@ const csvStringifier = createCsvStringifier({
   ]
 })
 
+let csvIteration = 0;
+
 const writeToCsv = async () => {
   let listings = [];
   const generateListings = () => {
     let k;
     let obj;
-    for (let i = 0; i < 1000000; i++) {
+    for (let i = 1; i < 1000001; i++) {
+      let randomImageNum = Math.floor(Math.random() * 1000);
       obj = {};
       let title = listingAdjectives[Math.floor(Math.random() * listingAdjectives.length)] + ' ' + listingStyles[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)];
+      obj.id = csvIteration + i;
       obj.title = title.slice(0, 1).toUpperCase() + title.slice(1);
       obj.venue_type = listingType[Math.floor(Math.random() * listingType.length)];
       obj.bedrooms = Math.floor(Math.random() * 5 + 1);
@@ -54,7 +59,7 @@ const writeToCsv = async () => {
       obj.state = faker.address.state();
       obj.city = faker.address.city();
       k = i + 1;
-      obj.pic = `https://c8.alamy.com/comp/EPF1YW/nun-with-handgun-isolated-on-white-EPF1YW.jpg`;
+      obj.pic = `https://unsplash.it/500/500?image=${randomImageNum}`;
       listings.push(obj);
       if (i % 5000 === 0) {
         console.log(i);
@@ -63,6 +68,7 @@ const writeToCsv = async () => {
   };
   await generateListings();
   await file.write(csvStringifier.stringifyRecords(listings));
+  csvIteration += 1000000;
 }
 
 const writeAll = async () => {
