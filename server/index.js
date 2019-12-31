@@ -67,15 +67,15 @@ app.get('/mlistings/:id', (req, res) => {
 });
 
 app.put('/mlistings/:id', (req, res) => {
-
+  Listing.update({where: {listing_id: req.params.id}})
 });
 
 app.post('/mlistings/:id', (req, res) => {
-
+  Listing.create({where: {listing_id: req.params.id}})
 });
 
 app.delete('/mlistings/:id', (req, res) => {
-
+  Listing.delete({where: {listing_id: req.params.id}})
 });
 
 // app.get('/listings/search/:id', (req, res) => {
