@@ -17,6 +17,7 @@ CREATE TABLE BookingDate (
 );
 
 CREATE TABLE Listing (
+  listing_id INT,
   title VARCHAR,
   venue_type VARCHAR,
   bedrooms INT,

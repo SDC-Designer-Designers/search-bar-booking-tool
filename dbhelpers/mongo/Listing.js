@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const listingsSchema = new mongoose.Schema({
+  listing_id: Number,
   title: String,
   venue_type: String,
   bedrooms: Number,
