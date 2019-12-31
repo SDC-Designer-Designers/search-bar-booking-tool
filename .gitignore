@@ -22,10 +22,12 @@ coverage
 
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 
-# postgres csv file
-
+# csv files
 ./dbhelpers/csv/listingRecords.csv
 ./dbhelpers/csv/bookingRecords.csv
+
+# postgres pool connection
+./server/pg/pool.js
 
 
 

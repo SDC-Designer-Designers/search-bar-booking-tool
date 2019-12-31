@@ -2,11 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
-const BookingDate = require('../../dbhelpers/mySQL/models').BookingDate;
-const Listing = require('../../dbhelpers/mySQL/models').Listing;
+// const BookingDate = require('../../dbhelpers/mySQL/models').BookingDate;
+// const Listing = require('../../dbhelpers/mySQL/models').Listing;
 const path = require('path');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+// const Sequelize = require('sequelize');
+// const Op = Sequelize.Op;
+const pool = require('./pool.js'); // pg database connection
 
 const app = express();
 const port = 3001;
@@ -17,12 +18,22 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../../client/dist')));
 
+// app.get('/dates/:id', (req, res) => {
+//   // console.log(req.params);
+//   BookingDate.findAll({where: {listing_id: req.params.id}})
+//     .then(results => res.status(200).send(results))
+//     .catch(err => res.status(404).send(err));
+// });
+
 app.get('/dates/:id', (req, res) => {
-  // console.log(req.params);
-  BookingDate.findAll({where: {listing_id: req.params.id}})
-    .then(results => res.status(200).send(results))
-    .catch(err => res.status(404).send(err));
-});
+  const id = parseInt(req.params.id);
+  pool.query('SELECT * FROM bookingdate WHERE id = $1', [id], (err, results) => {
+    if (err) {
+      console.error(err)
+    }
+    res.status(200).json(res.rows)
+  })
+})
 
 // get by location
 app.get('/listings/search', (req, res) => {
