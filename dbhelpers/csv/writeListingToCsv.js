@@ -15,7 +15,7 @@ listingReview = ['Great.', 'Great find.', 'Beautiful view.', 'Great bargain.', '
 
 const csvStringifier = createCsvStringifier({
   header: [
-    {id: 'listing_id', title:'LISTING_ID'},
+    {id: 'id', title:'ID'},
     {id: 'title', title: 'TITLE'},
     {id: 'venue_type', title: 'VENUE_TYPE'},
     {id: 'bedrooms', title: 'BEDROOMS'},
@@ -44,7 +44,7 @@ const writeToCsv = async () => {
       let randomImageNum = Math.floor(Math.random() * 1000);
       obj = {};
       let title = listingAdjectives[Math.floor(Math.random() * listingAdjectives.length)] + ' ' + listingStyles[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)] + ' ' + listingAmenities[Math.floor(Math.random() * listingStyles.length)];
-      obj.listing_id = csvIteration + i;
+      obj.id = csvIteration + i;
       obj.title = title.slice(0, 1).toUpperCase() + title.slice(1);
       obj.venue_type = listingType[Math.floor(Math.random() * listingType.length)];
       obj.bedrooms = Math.floor(Math.random() * 5 + 1);

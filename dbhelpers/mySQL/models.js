@@ -31,10 +31,6 @@ const BookingDate = sequelize.define('Date', {
 });
 
 const Listing = sequelize.define('Listing', {
-  listing_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
   title: {
     type: Sequelize.STRING,
     allowNull: false

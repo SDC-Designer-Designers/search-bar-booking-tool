@@ -84,18 +84,17 @@ app.put('/mlistings/:id', (req, res) => {
       city: req.body.city,
       pic: req.body.pic
     },
-    {where: {listing_id: req.params.id}}
+    {where: {id: req.params.id}}
   )
   .then((results) => {
     res.status(202).send(results)
-    console.log('hit put route');
   })
   .catch((err) => {
     console.error(err)
   })
 });
 
-app.post('/mlistings/:id', (req, res) => {
+app.post('/mlistings', (req, res) => {
   Listing.create(
     {
       title: req.body.title,
@@ -112,12 +111,10 @@ app.post('/mlistings/:id', (req, res) => {
       state: req.body.state,
       city: req.body.city,
       pic: req.body.pic
-    },
-    {where: {listing_id: req.params.id}}
+    }
   )
   .then((results) => {
     res.status(202).send(results)
-    console.log('hit put route');
   })
   .catch((err) => {
     console.error(err)
@@ -125,7 +122,13 @@ app.post('/mlistings/:id', (req, res) => {
 });
 
 app.delete('/mlistings/:id', (req, res) => {
-  Listing.delete({where: {listing_id: req.params.id}})
+  Listing.destroy({where: {id: req.params.id}})
+  .then((results) => {
+    res.status(204).end()
+  })
+  .catch((err) => {
+    console.error(err)
+  })
 });
 
 // app.get('/listings/search/:id', (req, res) => {
