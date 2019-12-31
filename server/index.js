@@ -67,7 +67,16 @@ app.get('/mlistings/:id', (req, res) => {
 });
 
 app.put('/mlistings/:id', (req, res) => {
-  Listing.update({where: {listing_id: req.params.id}})
+  Listing.update(
+    {title: req.body.title},
+    {where: {listing_id: req.params.id}}
+  )
+  .then((results) => {
+    res.status(202).send(results)
+  })
+  .catch((err) => {
+    console.error(err)
+  })
 });
 
 app.post('/mlistings/:id', (req, res) => {

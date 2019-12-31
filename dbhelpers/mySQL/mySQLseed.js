@@ -95,4 +95,4 @@ const Listing = require('./models').Listing;
   };
 
   generateListings();
-  // generateBookingDates();
+  generateBookingDates();
