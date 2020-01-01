@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
-const BookingDate = require('../../dbhelpers/mySQL/models').BookingDate;
-const Listing = require('../../dbhelpers/mySQL/models').Listing;
+const BookingDate = require('../../dbhelpers/mongo/BookingDate.js');
+const Listing = require('../../dbhelpers/mmongo/Listing.js');
 const path = require('path');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
+const mongoose = require('mongoose');
+const db = require('../../dbhelpers/mongo/connection.js');
 
 const app = express();
 const port = 3002;

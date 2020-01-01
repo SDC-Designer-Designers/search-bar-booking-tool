@@ -1,3 +1,6 @@
+
+// believe this file can be removed, TBD
+
 const db = require('./connection.js');
 const BookingDate = require('./BookingDate.js');
 const Listing = require('./Listing.js');
