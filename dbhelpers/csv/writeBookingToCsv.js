@@ -12,6 +12,7 @@ dates = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12',
 
 const csvStringifier = createCsvStringifier({
   header: [
+    {id: 'id', title: 'ID'},
     {id: 'date', title: 'DATE'},
     {id: 'available', title: 'AVAILABLE'},
     {id: 'check_in', title: 'CHECK_IN'},
@@ -31,7 +32,7 @@ const writeToCsv = async () => {
         for (let k = 0; k < datesInMonths[j]; k++) {
           for (let l = 1; l < 13700; l++) {
             date = years[i] + '-' + months[j] + '-' + dates[k];
-            bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), id: l});
+            bookingDates.push({id: m, date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
             console.log(m); // log which record number currently working
             m++; // increment record number
             if (m % 5000 === 0) {
