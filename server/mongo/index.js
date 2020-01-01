@@ -113,5 +113,5 @@ app.delete('/mlistings/:id', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('App is listening on port', port);
+  console.log('Mongo App is listening on port', port);
 });

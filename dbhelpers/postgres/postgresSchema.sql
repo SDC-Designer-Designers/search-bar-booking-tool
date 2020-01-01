@@ -13,11 +13,11 @@ CREATE TABLE BookingDate (
    check_in BOOLEAN NOT NULL,
    rate NUMERIC(10, 2),
    check_out BOOLEAN NOT NULL,
-   listing_id serial NOT NULL
+   id serial NOT NULL
 );
 
 CREATE TABLE Listing (
-  id serial NOT NULL,
+  id serial NOT NULL, -- make a unique value?
   title VARCHAR,
   venue_type VARCHAR,
   bedrooms INT,
