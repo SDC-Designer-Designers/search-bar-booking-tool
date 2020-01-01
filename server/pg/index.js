@@ -25,19 +25,30 @@ app.get('/dates/:id', (req, res) => {
   })
 })
 
-// get by location
 app.get('/listings/search', (req, res) => {
   let results = [];
-  Listing.findAll({limit: 10, where: {title: {[Op.like]: '%' + req.query.query + '%'}}}).then(assets => {
-    results.push(assets);
-    Listing.findAll({limit: 10, where: {city: {[Op.like]: '%' + req.query.query + '%'}}}).then(newAssets => {
-      results.push(newAssets.slice(0, 10 - results.length));
-      Listing.findAll({limit: 10, where: {state: {[Op.like]: '%' + req.query.query + '%'}}}).then(titleAssets => {
-        results.push(titleAssets);
+  pool.query(`SELECT * FROM listing WHERE title LIKE '%${req.query.query}%' LIMIT 10;`, (err, titles) => {
+    if (err) {
+      // console.error(err)
+      res.status(404).send(err)
+    }
+    results.push(titles.rows);
+    pool.query(`SELECT * FROM listing WHERE city LIKE '%${req.query.query}%' LIMIT 10;`, (err, cities) => {
+      if (err) {
+        // console.error(err)
+        res.status(404).send(err)
+      }
+      results.push(cities.rows.slice(0, 10 - results.length));
+      pool.query(`SELECT * FROM listing WHERE state LIKE '%${req.query.query}%' LIMIT 10;`, (err, states) => {
+        if (err) {
+          // console.error(err)
+          res.status(404).send(err)
+        }
+        results.push(states.rows);
         res.status(200).send(results[0].concat(results[1].concat(results[2])));
-      }).catch(err => res.status(404).send(err));
-    }).catch(err => res.status(404).send(err));
-  }).catch(err => res.status(404).send(err));
+      })
+    })
+  })
 });
 
 // EXTREMEMLY SLOW!!!!!!!
