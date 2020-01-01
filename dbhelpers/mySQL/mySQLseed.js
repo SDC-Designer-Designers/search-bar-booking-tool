@@ -31,7 +31,7 @@ const Listing = require('./models').Listing;
           for (let l = 1; l < 11; l++) {
             date = years[i] + '-' + months[j] + '-' + dates[k];
             // date = '2020-09-17';
-            bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
+            bookingDates.push({date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), id: l});
           }
         }
       }

@@ -24,7 +24,7 @@ const BookingDate = sequelize.define('Date', {
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
-  listing_id: {
+  id: {
     type: Sequelize.INTEGER,
     allowNull: false
   }

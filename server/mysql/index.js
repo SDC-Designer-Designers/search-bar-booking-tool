@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/dates/:id', (req, res) => {
   // console.log(req.params);
-  BookingDate.findAll({where: {listing_id: req.params.id}})
+  BookingDate.findAll({where: {id: req.params.id}})
     .then(results => res.status(200).send(results))
     .catch(err => res.status(404).send(err));
 });
@@ -114,7 +114,7 @@ app.delete('/mlistings/:id', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log('App is listening on port', port);
+  console.log('mySQL App is listening on port', port);
 });
 
 // app.put('/dates/check_in/:id', (req, res) => {
