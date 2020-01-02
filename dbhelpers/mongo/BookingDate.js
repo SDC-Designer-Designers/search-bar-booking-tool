@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
 const bookingDateSchema = new mongoose.Schema({
   date: String,
@@ -6,8 +7,8 @@ const bookingDateSchema = new mongoose.Schema({
   check_in: Boolean,
   rate: Number, // may need to review this type, original is NUMERIC(10, 2)
   check_out: Boolean,
-  id: Number
-})
+  listing_id: Number
+}, {collection: 'bookingdates'})
 
 const BookingDate = mongoose.model('BookingDate', bookingDateSchema);
 

@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/dates/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query('SELECT * FROM bookingdate WHERE id = $1', [id], (err, results) => {
+  pool.query('SELECT * FROM bookingdate WHERE listing_id = $1', [id], (err, results) => {
     if (err) {
       res.status(404).send(err)
     }

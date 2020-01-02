@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
 const listingsSchema = new mongoose.Schema({
   id: Number, // replace this with auto incrementing value
