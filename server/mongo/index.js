@@ -82,7 +82,7 @@ app.post('/mlistings', (req, res) => {
       city: req.body.city,
       pic: req.body.pic
     }
-  ).lean()
+  )
   .then((results) => {
     res.status(202).send(results)
   })

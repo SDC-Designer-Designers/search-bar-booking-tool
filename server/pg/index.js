@@ -41,7 +41,6 @@ app.get('/listings/search', (req, res) => {
           res.status(404).send(err)
         }
         results.push(states.rows);
-        console.log(results)
         res.status(200).send(results[0].concat(results[1].concat(results[2])));
       })
     })
