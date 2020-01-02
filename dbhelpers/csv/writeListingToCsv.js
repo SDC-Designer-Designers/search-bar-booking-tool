@@ -15,21 +15,21 @@ listingReview = ['Great.', 'Great find.', 'Beautiful view.', 'Great bargain.', '
 
 const csvStringifier = createCsvStringifier({
   header: [
-    {id: 'id', title:'ID'},
-    {id: 'title', title: 'TITLE'},
-    {id: 'venue_type', title: 'VENUE_TYPE'},
-    {id: 'bedrooms', title: 'BEDROOMS'},
-    {id: 'bathrooms', title: 'BATHROOMS'},
-    {id: 'sleep_capacity', title: 'SLEEP_CAPACITY'},
-    {id: 'square_feet', title: 'SQUARE_FEET'},
-    {id: 'review_overview', title: 'REVIEW_OVERVIEW'},
-    {id: 'rating', title: 'RATING'},
-    {id: 'review_number', title: 'REVIEW_NUMBER'},
-    {id: 'owner', title: 'OWNER'},
-    {id: 'cleaning_fee', title: 'CLEANING_FEE'},
-    {id: 'state', title: 'STATE'},
-    {id: 'city', title: 'CITY'},
-    {id: 'pic', title: 'PIC'},
+    {id: 'id', title:'id'},
+    {id: 'title', title: 'title'},
+    {id: 'venue_type', title: 'venue_type'},
+    {id: 'bedrooms', title: 'bedrooms'},
+    {id: 'bathrooms', title: 'bathrooms'},
+    {id: 'sleep_capacity', title: 'sleep_capacity'},
+    {id: 'square_feet', title: 'square_feet'},
+    {id: 'review_overview', title: 'review_overview'},
+    {id: 'rating', title: 'rating'},
+    {id: 'review_number', title: 'review_number'},
+    {id: 'owner', title: 'owner'},
+    {id: 'cleaning_fee', title: 'cleaning_fee'},
+    {id: 'state', title: 'state'},
+    {id: 'city', title: 'city'},
+    {id: 'pic', title: 'pic'},
   ]
 })
 

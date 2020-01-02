@@ -12,7 +12,7 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'mongoose connection error'));
 db.once('open', () => {
-  console.log('successfully connected to mongo')
+  console.log('successfully connected to mongoDb')
   // console.log(db);
 })
 
