@@ -19,7 +19,6 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/dates/:id', (req, res) => {
-  // console.log(req.params);
   BookingDate.findAll({where: {listing_id: req.params.id}})
     .then(results => res.status(200).send(results))
     .catch(err => res.status(404).send(err));
@@ -96,7 +95,7 @@ app.put('/mlistings/:id', (req, res) => {
     {where: {id: req.params.id}}
   )
   .then((results) => {
-    res.status(202).send(results)
+    res.status(202).send(results) // how to get this to return the updated record?
   })
   .catch((err) => {
     console.error(err)
@@ -116,40 +115,3 @@ app.delete('/mlistings/:id', (req, res) => {
 app.listen(port, () => {
   console.log('mySQL App is listening on port', port);
 });
-
-// app.put('/dates/check_in/:id', (req, res) => {
-//   BookingDate.update({check_in: false, available: true}, {where: {check_in: true, listing_id: req.params.id}})
-//     .then(() => {
-//       BookingDate.update({check_in: true, available: false}, {where: {date: req.body.date, listing_id: req.params.id}})
-//         .then(() => res.status(200).send(results))
-//         .catch(err => res.status(404).send(err));
-//     });
-// });
-
-// app.put('/dates/check_out/:id', (req, res) => {
-//   BookingDate.update({check_out: false, available: true}, {where: {check_out: true, listing_id: req.params.id}})
-//     .then(() => {
-//       BookingDate.update({check_out: true, available: false}, {where: {date: req.body.date, listing_id: req.params.id}})
-//         .then(() => res.status(200).send(results))
-//         .catch(err => res.status(404).send(err));
-//     });
-// });
-
-// app.get('/listings/search/:id', (req, res) => {
-//   BookingDate.findAll({where: {date: req.body.check_in_date, available: true, listing_id: req.params.id}})
-//     .then(results => {
-//       if (results.length) {
-//         BookingDate.findAll({where: {date: req.body.check_out_date, available: true, listing_id: req.params.id}})
-//           .then(results1 => {
-//             if (results1.length) {
-//               Listings.findAll({limit: 10, where: {title: {$like: '%' + req.body.query + '%'}, }})
-//               .then(results => res.status(200).send(results)).catch(err => res.status(404).send(err));
-//             } else {
-//               res.status(404).send('No listings found for these dates');
-//             }
-//           });
-//       } else {
-//         res.status(404).send('No listings found for these dates');
-//       }
-//     });
-// });

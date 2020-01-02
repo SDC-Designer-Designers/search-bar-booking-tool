@@ -5,11 +5,11 @@
   "main": "./server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "react-dev": "webpack -d --watch",
+    "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
     "mysql-server-start": "nodemon server/mysql/index.js",
     "pg-server-start": "nodemon server/pg/index.js",
     "mongo-server-start": "nodemon server/mongo/index.js",
-    "react-dev": "webpack -d --watch",
-    "convert-css": "sass  --watch client/src/style.sass:client/src/style.css",
     "seed-db-austin-legacy": "node dbhelpers/mySQL/seed.js",
     "seed-db-mysql": "node dbhelpers/mySQL/mySQLseed.js",
     "write-listing-to-csv": "node --max_old_space_size=7000 dbhelpers/csv/writeListingToCsv.js",
