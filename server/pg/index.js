@@ -16,12 +16,11 @@ app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/dates/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  pool.query('SELECT * FROM bookingdate WHERE id = $1', [id], (err, results) => {
+  pool.query('SELECT * FROM bookingdate WHERE listing_id = $1', [id], (err, results) => {
     if (err) {
       res.status(404).send(err)
     }
     res.status(200).send(results.rows)
-    // res.status(200).json(res.rows)
   })
 })
 
@@ -29,19 +28,16 @@ app.get('/listings/search', (req, res) => {
   let results = [];
   pool.query(`SELECT * FROM listing WHERE title LIKE '%${req.query.query}%' LIMIT 10;`, (err, titles) => {
     if (err) {
-      // console.error(err)
       res.status(404).send(err)
     }
     results.push(titles.rows);
     pool.query(`SELECT * FROM listing WHERE city LIKE '%${req.query.query}%' LIMIT 10;`, (err, cities) => {
       if (err) {
-        // console.error(err)
         res.status(404).send(err)
       }
       results.push(cities.rows.slice(0, 10 - results.length));
       pool.query(`SELECT * FROM listing WHERE state LIKE '%${req.query.query}%' LIMIT 10;`, (err, states) => {
         if (err) {
-          // console.error(err)
           res.status(404).send(err)
         }
         results.push(states.rows);

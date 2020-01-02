@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const listingsSchema = new mongoose.Schema({
   id: Number, // replace this with auto incrementing value
@@ -16,7 +18,9 @@ const listingsSchema = new mongoose.Schema({
   state: String,
   city: String,
   pic: String
-})
+}, {collection: 'listing'})
+
+listingsSchema.plugin(AutoIncrement, {inc_field: 'id', start_seq: 10000001})
 
 const Listing = mongoose.model('Listing', listingsSchema);
 

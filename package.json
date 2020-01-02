@@ -17,8 +17,8 @@
     "create-pg-db-tables": "psql -U postgres < ./dbhelpers/postgres/postgresSchema.sql",
     "write-csv-listing-to-pg": "psql -U postgres < ./dbhelpers/postgres/writeListingCsvToPg.sql",
     "write-csv-booking-to-pg": "psql -U postgres < ./dbhelpers/postgres/writeBookingCsvToPg.sql",
-    "write-csv-listing-to-mongo": "mongoimport --db=sdcsearch --collection=listing --type=csv --headerline --file=./dbhelpers/csv/listingRecords.csv",
-    "write-csv-booking-to-mongo": "mongoimport --db=sdcsearch --collection=bookingdate --type=csv --headerline --file=./dbhelpers/csv/bookingRecords.csv"
+    "write-csv-listing-to-mongo": "mongoimport --db=sdcsearch --collection=listing --type=csv --headerline --drop --file=./dbhelpers/csv/listingRecords.csv",
+    "write-csv-booking-to-mongo": "mongoimport --db=sdcsearch --collection=bookingdate --type=csv --headerline --drop --file=./dbhelpers/csv/bookingRecords.csv"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
   "homepage": "https://github.com/liu-austin/al-front-end-capstone#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "css-loader": "^3.3.2",
@@ -40,6 +41,7 @@
     "faker": "^4.1.0",
     "mongodb": "^3.4.1",
     "mongoose": "^5.8.3",
+    "mongoose-sequence": "^5.2.2",
     "morgan": "^1.9.1",
     "mysql2": "^2.0.1",
     "pg": "^7.15.1",

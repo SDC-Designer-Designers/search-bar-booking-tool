@@ -12,13 +12,13 @@ dates = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12',
 
 const csvStringifier = createCsvStringifier({
   header: [
-    {id: 'id', title: 'ID'},
-    {id: 'date', title: 'DATE'},
-    {id: 'available', title: 'AVAILABLE'},
-    {id: 'check_in', title: 'CHECK_IN'},
-    {id: 'rate', title: 'RATE'},
-    {id: 'check_out', title: 'CHECK_OUT'},
-    {id: 'listing_id', title: 'LISTING_ID'},
+    {id: 'id', title: 'id'},
+    {id: 'date', title: 'date'},
+    {id: 'available', title: 'available'},
+    {id: 'check_in', title: 'check_in'},
+    {id: 'rate', title: 'rate'},
+    {id: 'check_out', title: 'check_out'},
+    {id: 'listing_id', title: 'listing_id'},
   ]
 });
 
