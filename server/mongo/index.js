@@ -19,8 +19,7 @@ app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/dates/:id', (req, res) => {
   const id = parseInt(req.params.id);
-  // var query = BookingDate.find({ID: id}).limit(1)
-  var query = BookingDate.find({LISTING_ID: id})
+  var query = BookingDate.find({LISTING_ID: id}).lean()
   query.exec()
     .then(results => {
       console.log(req.params.id);
@@ -44,40 +43,43 @@ app.get('/dates/:id', (req, res) => {
 //   }).catch(err => res.status(404).send(err));
 // });
 
-// app.get('/mlistings/:id', (req, res) => {
-//   Listing.findAll({where: {id: req.params.id}})
-//     .then(results => {
-//       res.status(200).send(results);
-//     })
-//     .catch(err => res.status(404).send(err));
-// });
+app.get('/mlistings/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  Listing.find({ID: id}).lean()
+    .then(results => {
+      res.status(200).send(results);
+    })
+    .catch(err => res.status(404).send(err));
+});
 
-// app.post('/mlistings', (req, res) => {
-//   Listing.create(
-//     {
-//       title: req.body.title,
-//       venue_type: req.body.venue_type,
-//       bedrooms: req.body.bedrooms,
-//       bathrooms: req.body.bathrooms,
-//       sleep_capacity: req.body.sleep_capacity,
-//       square_feet: req.body.square_feet,
-//       review_overview: req.body.sleep_capacity,
-//       rating: req.body.rating,
-//       review_number: req.body.review_number,
-//       owner: req.body.owner,
-//       cleaning_fee: req.body.cleaning_fee,
-//       state: req.body.state,
-//       city: req.body.city,
-//       pic: req.body.pic
-//     }
-//   )
-//   .then((results) => {
-//     res.status(202).send(results)
-//   })
-//   .catch((err) => {
-//     console.error(err)
-//   })
-// });
+app.post('/mlistings', (req, res) => {
+  // const bedrooms = parseInt(req.body.bedrooms);
+  Listing.create(
+    {
+      TITLE: req.body.title,
+      VENUE_TYPE: req.body.venue_type,
+      BEDROOMS: req.body.bedrooms,
+      BATHROOMS: req.body.bathrooms,
+      SLEEP_CAPACITY: req.body.sleep_capacity,
+      SQUARE_FEET: req.body.square_feet,
+      REVIEW_OVERVIEW: req.body.sleep_capacity,
+      RATING: req.body.rating,
+      REVIEW_NUMBER: req.body.review_number,
+      OWNER: req.body.owner,
+      CLEANING_FEE: req.body.cleaning_fee,
+      STATE: req.body.state,
+      CITY: req.body.city,
+      PIC: req.body.pic
+    }
+  )
+  .then((results) => {
+    // console.log(bedrooms)
+    res.status(202).send(results)
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+});
 
 // app.put('/mlistings/:id', (req, res) => {
 //   Listing.update(
