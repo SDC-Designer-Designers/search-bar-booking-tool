@@ -53,7 +53,6 @@ app.get('/mlistings/:id', (req, res) => {
 });
 
 app.post('/mlistings', (req, res) => {
-  // const bedrooms = parseInt(req.body.bedrooms);
   Listing.create(
     {
       TITLE: req.body.title,
@@ -71,9 +70,8 @@ app.post('/mlistings', (req, res) => {
       CITY: req.body.city,
       PIC: req.body.pic
     }
-  )
+  ).lean()
   .then((results) => {
-    // console.log(bedrooms)
     res.status(202).send(results)
   })
   .catch((err) => {
@@ -81,36 +79,43 @@ app.post('/mlistings', (req, res) => {
   })
 });
 
-// app.put('/mlistings/:id', (req, res) => {
-//   Listing.update(
-//     {
-//       title: req.body.title,
-//       venue_type: req.body.venue_type,
-//       bedrooms: req.body.bedrooms,
-//       bathrooms: req.body.bathrooms,
-//       sleep_capacity: req.body.sleep_capacity,
-//       square_feet: req.body.square_feet,
-//       review_overview: req.body.sleep_capacity,
-//       rating: req.body.rating,
-//       review_number: req.body.review_number,
-//       owner: req.body.owner,
-//       cleaning_fee: req.body.cleaning_fee,
-//       state: req.body.state,
-//       city: req.body.city,
-//       pic: req.body.pic
-//     },
-//     {where: {id: req.params.id}}
-//   )
-//   .then((results) => {
-//     res.status(202).send(results)
-//   })
-//   .catch((err) => {
-//     console.error(err)
-//   })
-// });
+app.put('/mlistings/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  Listing.findOneAndUpdate(
+    {
+      ID: id
+    },
+    {
+      TITLE: req.body.title,
+      VENUE_TYPE: req.body.venue_type,
+      BEDROOMS: req.body.bedrooms,
+      BATHROOMS: req.body.bathrooms,
+      SLEEP_CAPACITY: req.body.sleep_capacity,
+      SQUARE_FEET: req.body.square_feet,
+      REVIEW_OVERVIEW: req.body.sleep_capacity,
+      RATING: req.body.rating,
+      REVIEW_NUMBER: req.body.review_number,
+      OWNER: req.body.owner,
+      CLEANING_FEE: req.body.cleaning_fee,
+      STATE: req.body.state,
+      CITY: req.body.city,
+      PIC: req.body.pic
+    },
+    {
+      new: true
+    }
+  ).lean()
+  .then((results) => {
+    res.status(202).send(results)
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+});
 
 app.delete('/mlistings/:id', (req, res) => {
-  Listing.deleteOne({id: req.params.id})
+  const id = parseInt(req.params.id);
+  Listing.deleteOne({ID: id}).lean()
   .then((results) => {
     res.status(204).end()
   })
