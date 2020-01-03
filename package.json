@@ -14,6 +14,8 @@
     "seed-db-mysql": "node dbhelpers/mySQL/mySQLseed.js",
     "write-listing-to-csv": "node --max_old_space_size=7000 dbhelpers/csv/writeListingToCsv.js",
     "write-booking-to-csv": "node --max_old_space_size=7000 dbhelpers/csv/writeBookingToCsv.js",
+    "write-booking-to-csv-drain": "node dbhelpers/csv/writeBookingDrain.js",
+    "write-listing-to-csv-drain": "node dbhelpers/csv/writeListingDrain.js",
     "create-pg-db-tables": "psql -U postgres < ./dbhelpers/postgres/postgresSchema.sql",
     "write-csv-listing-to-pg": "psql -U postgres < ./dbhelpers/postgres/writeListingCsvToPg.sql",
     "write-csv-booking-to-pg": "psql -U postgres < ./dbhelpers/postgres/writeBookingCsvToPg.sql",
