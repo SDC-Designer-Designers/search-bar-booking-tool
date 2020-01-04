@@ -7,7 +7,7 @@ const bookingDateSchema = new mongoose.Schema({
   check_in: Boolean,
   rate: Number, // may need to review this type, original is NUMERIC(10, 2)
   check_out: Boolean,
-  listing_id: Number
+  listing_id: {type: Number, index: true}
 }, {collection: 'bookingdate'})
 
 const BookingDate = mongoose.model('BookingDate', bookingDateSchema);
