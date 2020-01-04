@@ -75,4 +75,3 @@ const writeDrain = () => {
 
 file.write(csvStringifier.getHeaderString()); // writes the csv header row
 writeDrain();
-console.log('done writing listings to csv');

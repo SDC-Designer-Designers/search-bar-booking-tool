@@ -1,3 +1,7 @@
+
+// node memory override, DO NOT USE. Retaining for reference
+
+/*
 const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
 const fs = require('fs');
 const file = fs.createWriteStream('./dbhelpers/csv/bookingRecords.csv');
@@ -54,3 +58,4 @@ const writeAll = async () => {
 
 file.write(csvStringifier.getHeaderString()); // writes the csv header row
 writeAll();
+*/

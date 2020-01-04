@@ -1,3 +1,5 @@
+// DEPRECATED, MAY COME BACK LATER //
+/*
 const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
 const fs = require('fs');
 const file = fs.createWriteStream('./dbhelpers/csv/bookingRecords.csv');
@@ -34,20 +36,33 @@ function writeDrain() {
   let ok = true;
   let bookingDates = [];
   let date;
+
   loop1:
   for (i; i < years.length; i++) {
     if (ok) {
     for (j; j < datesInMonths.length; j++) {
+      if (ok) {
       for (k; k < datesInMonths[j]; k++) {
+        if (ok) {
         for (l; l < 10; l++) {
-          date = years[i] + '-' + months[j] + '-' + dates[k];
-          bookingDates.push({id: m, date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
-          m++;
-          if (m % 50 === 0) {
-            console.log(m)
+          if (ok) {
+            date = years[i] + '-' + months[j] + '-' + dates[k];
+            bookingDates.push({id: m, date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
+            if (m % 50 === 0) {
+              console.log(m)
+            }
+            ok = file.write(csvStringifier.stringifyRecords(bookingDates))
+            m++;
+          } else {
+            break loop1;
           }
-          ok = file.write(csvStringifier.stringifyRecords(bookingDates))
         }
+        } else {
+          break loop1;
+        }
+      }
+      } else {
+        break loop1;
       }
     }
     } else {
@@ -63,3 +78,4 @@ function writeDrain() {
 file.write(csvStringifier.getHeaderString()); // writes the csv header row
 writeDrain();
 console.log('done writing bookings to csv');
+*/
