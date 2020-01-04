@@ -26,17 +26,17 @@ app.get('/dates/:id', (req, res) => {
 
 app.get('/listings/search', (req, res) => {
   let results = [];
-  pool.query(`SELECT * FROM listing WHERE title LIKE '%${req.query.query}%' LIMIT 10;`, (err, titles) => {
+  pool.query(`SELECT * FROM listing WHERE title SIMILAR TO '(${req.query.query}%|%${req.query.query}%|${req.query.query.slice(0,1).toUpperCase() + req.query.query.slice(1)}%)' LIMIT 10;`, (err, titles) => {
     if (err) {
       res.status(404).send(err)
     }
     results.push(titles.rows);
-    pool.query(`SELECT * FROM listing WHERE city LIKE '%${req.query.query}%' LIMIT 10;`, (err, cities) => {
+    pool.query(`SELECT * FROM listing WHERE city SIMILAR TO '(${req.query.query}%|%${req.query.query}%|${req.query.query.slice(0,1).toUpperCase() + req.query.query.slice(1)}%)' LIMIT 10;`, (err, cities) => {
       if (err) {
         res.status(404).send(err)
       }
       results.push(cities.rows.slice(0, 10 - results.length));
-      pool.query(`SELECT * FROM listing WHERE state LIKE '%${req.query.query}%' LIMIT 10;`, (err, states) => {
+      pool.query(`SELECT * FROM listing WHERE state SIMILAR TO '(${req.query.query}%|%${req.query.query}%|${req.query.query.slice(0,1).toUpperCase() + req.query.query.slice(1)}%)' LIMIT 10;`, (err, states) => {
         if (err) {
           res.status(404).send(err)
         }
