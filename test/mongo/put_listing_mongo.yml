@@ -3,7 +3,8 @@ config:
   phases:
     - duration: 15
       arrivalRate: 1000
+      rampTo: 1000
 scenarios:
   - flow:
-      - get:
-          url: "/mlistings/5000000"
+      - put:
+          url: "/mlistings/10000"

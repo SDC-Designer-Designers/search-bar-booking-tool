@@ -2,8 +2,8 @@ config:
   target: http://localhost:3001
   phases:
     - duration: 15
-      arrivalRate: 10
+      arrivalRate: 1000
 scenarios:
   - flow:
       - get:
-          url: "/dates/500"
+          url: "/listings/search?query=a"

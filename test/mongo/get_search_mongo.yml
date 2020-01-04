@@ -6,4 +6,4 @@ config:
 scenarios:
   - flow:
       - get:
-          url: "/mlistings/5000000"
+          url: "/listings/search?query=a"

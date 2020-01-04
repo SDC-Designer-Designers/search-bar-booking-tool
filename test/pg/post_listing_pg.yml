@@ -1,0 +1,24 @@
+config:
+  target: http://localhost:3001
+  phases:
+    - duration: 15
+      arrivalRate: 1000
+scenarios:
+  - flow:
+      - post:
+          url: "/mlistings/"
+          json:
+            title: "SOMETHING ELSE ELSE"
+            venue_type: "SOMETHING ELSE"
+            bedrooms: "8"
+            bathrooms: "8"
+            sleep_capacity: "100"
+            square_feet: "1"
+            review_overview: "SOMETHING ELSE"
+            rating: "1"
+            review_number: "1"
+            owner: "SOMEONE ELSE"
+            cleaning_fee: "1"
+            state: "SOMEWHERE ELSE"
+            city: "SOMEWHERE ELSE"
+            pic: "different pic"
