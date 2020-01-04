@@ -1,3 +1,7 @@
+
+// memory override generation, DO NOT USE. retaining for reference only.
+
+/*
 const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
 const fs = require('fs');
 const file = fs.createWriteStream('./dbhelpers/csv/listingRecords.csv');
@@ -38,7 +42,7 @@ let csvIteration = 0;
 const writeToCsv = async () => {
   let listings = [];
   const generateListings = () => {
-    let k;
+    // let k;
     let obj;
     for (let i = 1; i < 1000001; i++) {
       let randomImageNum = Math.floor(Math.random() * 1000);
@@ -58,7 +62,7 @@ const writeToCsv = async () => {
       obj.cleaning_fee = Math.floor(Math.random() * 100) + 10;
       obj.state = faker.address.state();
       obj.city = faker.address.city();
-      k = i + 1;
+      // k = i + 1;
       obj.pic = `https://unsplash.it/500/500?image=${randomImageNum}`;
       listings.push(obj);
       if (i % 5000 === 0) {
@@ -87,3 +91,4 @@ const writeAll = async () => {
 
 file.write(csvStringifier.getHeaderString()); // writes the csv header row
 writeAll();
+*/

@@ -18,7 +18,7 @@ CREATE TABLE BookingDate (
 );
 
 CREATE TABLE Listing (
-  id serial NOT NULL, -- make a unique value?
+  id serial PRIMARY KEY, -- make a unique value?
   title VARCHAR,
   venue_type VARCHAR,
   bedrooms INT,
@@ -34,3 +34,5 @@ CREATE TABLE Listing (
   city VARCHAR,
   pic VARCHAR
 );
+
+ALTER SEQUENCE listing_id_seq RESTART WITH 10000001;

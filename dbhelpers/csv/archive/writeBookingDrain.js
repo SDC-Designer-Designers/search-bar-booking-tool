@@ -1,3 +1,5 @@
+// DEPRECATED, MAY COME BACK LATER //
+/*
 const createCsvStringifier = require('csv-writer').createObjectCsvStringifier;
 const fs = require('fs');
 const file = fs.createWriteStream('./dbhelpers/csv/bookingRecords.csv');
@@ -22,35 +24,58 @@ const csvStringifier = createCsvStringifier({
   ]
 });
 
-const writeToCsv = async () => {
+
+let m = 1;
+let i = 0;
+let j = 0;
+let k = 0;
+let l = 1;
+
+function writeDrain() {
+  // console.log('hit the drain');
+  let ok = true;
   let bookingDates = [];
   let date;
-  const generateBookingDates = () => {
-    let m = 1;
-    for (let i = 0; i < years.length; i++) {
-      for (let j = 0; j < datesInMonths.length; j++) {
-        for (let k = 0; k < datesInMonths[j]; k++) {
-          for (let l = 1; l < 13700; l++) {
+
+  loop1:
+  for (i; i < years.length; i++) {
+    if (ok) {
+    for (j; j < datesInMonths.length; j++) {
+      if (ok) {
+      for (k; k < datesInMonths[j]; k++) {
+        if (ok) {
+        for (l; l < 10; l++) {
+          if (ok) {
             date = years[i] + '-' + months[j] + '-' + dates[k];
             bookingDates.push({id: m, date, available: true, check_in: false, check_out: false, rate: Math.floor(Math.random() * 750 + 50), listing_id: l});
-            console.log(m); // log which record number currently working
-            m++; // increment record number
-            if (m % 5000 === 0) {
+            if (m % 50 === 0) {
               console.log(m)
             }
+            ok = file.write(csvStringifier.stringifyRecords(bookingDates))
+            m++;
+          } else {
+            break loop1;
           }
         }
+        } else {
+          break loop1;
+        }
+      }
+      } else {
+        break loop1;
       }
     }
+    } else {
+      break loop1;
+    }
   }
-  await generateBookingDates();
-  await file.write(csvStringifier.stringifyRecords(bookingDates));
-}
-
-const writeAll = async () => {
-  await writeToCsv();
-  console.log('done writing bookings to csv');
+  if (!ok) {
+    // console.log('not ok');
+    file.once('drain', writeDrain);
+  }
 }
 
 file.write(csvStringifier.getHeaderString()); // writes the csv header row
-writeAll();
+writeDrain();
+console.log('done writing bookings to csv');
+*/
