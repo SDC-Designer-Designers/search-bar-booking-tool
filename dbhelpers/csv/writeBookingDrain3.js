@@ -1,6 +1,6 @@
 const createCsvStringifier = require('csv-writer').createArrayCsvStringifier;
 const fs = require('fs');
-const file = fs.createWriteStream('./dbhelpers/csv/bookingRecords.csv');
+const file = fs.createWriteStream('./dbhelpers/csv/bookingRecords.csv', {'flags': 'a'});
 
 months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
@@ -19,7 +19,7 @@ const csvStringifier = createCsvStringifier({
 let bookingDates = []
 let date;
 
-let m = 1;
+let m = 5000001;
 
 const generateBookingDates = async (listStart, listEnd) => {
   for (let h = 0; h < years.length; h++) {
@@ -29,10 +29,10 @@ const generateBookingDates = async (listStart, listEnd) => {
           try {
             date = years[h] + '-' + months[j] + '-' + dates[k];
             await bookingDates.push([[m, date, true, false, Math.floor(Math.random() * 750 + 50), false, l]]);
-            m++; // increment record number
             if (m % 5000 === 0) {
               console.log(m)
             }
+            m++;
           }
           catch (error) {
             console.error(error);
@@ -60,8 +60,7 @@ const writeDrain = () => {
 }
 
 const createAndWrite = async () => {
-  await generateBookingDates(1, 3425);
-  await file.write(csvStringifier.getHeaderString()); // writes the csv header row
+  await generateBookingDates(6851, 10275);
   writeDrain();
 }
 

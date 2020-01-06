@@ -19,7 +19,7 @@ const csvStringifier = createCsvStringifier({
 let bookingDates = []
 let date;
 
-let m = 5000001;
+let m = 2500001;
 
 const generateBookingDates = async (listStart, listEnd) => {
   for (let h = 0; h < years.length; h++) {
@@ -47,7 +47,7 @@ let i = 0;
 
 const writeDrain = () => {
   let ok = true;
-  for (i; i < 5000000; i++) {
+  for (i; i < 2500000; i++) {
     if (ok) {
       ok = file.write(csvStringifier.stringifyRecords(bookingDates[i]))
     } else {
@@ -60,7 +60,7 @@ const writeDrain = () => {
 }
 
 const createAndWrite = async () => {
-  await generateBookingDates(6851, 13700);
+  await generateBookingDates(3426, 6850);
   writeDrain();
 }
 
