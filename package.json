@@ -29,6 +29,8 @@
     "write-csv-booking-to-pg": "psql -U postgres < ./dbhelpers/postgres/writeBookingCsvToPg.sql",
     "write-all-csv-to-pg": "npm-run-all -s write-csv-listing-to-pg write-csv-booking-to-pg",
     "write-csv-listing-to-mongo": "mongoimport --db=sdcsearch --collection=listing --type=csv --headerline --drop --file=./dbhelpers/csv/listingRecords.csv",
+    "write-csv-booking-to-mongo-ubuntu": "mongoimport --username=admin --db=sdcsearch --collection=bookingdate --type=csv --headerline --drop --file=./dbhelpers/csv/bookingRecords.csv",
+    "write-csv-listing-to-mongo-ubuntu": "mongoimport --username=admin --db=sdcsearch --collection=listing --type=csv --headerline --drop --file=./dbhelpers/csv/listingRecords.csv",
     "write-csv-booking-to-mongo": "mongoimport --db=sdcsearch --collection=bookingdate --type=csv --headerline --drop --file=./dbhelpers/csv/bookingRecords.csv",
     "write-all-csv-to-mongo": "npm-run-all -s write-csv-listing-to-mongo write-csv-booking-to-mongo"
   },
