@@ -59,6 +59,7 @@
     "mongoose-sequence": "^5.2.2",
     "morgan": "^1.9.1",
     "mysql2": "^2.0.1",
+    "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5",
     "pg": "^7.15.1",
     "react": "^16.12.0",
