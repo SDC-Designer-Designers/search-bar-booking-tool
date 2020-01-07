@@ -29,5 +29,8 @@ coverage
 # postgres pool connection
 ./server/pg/pool.js
 
+# mongo creds
+./dbhelpers/mongo/creds.js
+
 
 
