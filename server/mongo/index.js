@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, '../../client/dist')));
 
 app.get('/dates/:id', (req, res) => {
   const reqid = parseInt(req.params.id);
-  var query = BookingDate.find({listing_id: reqid}).lean()
+  var query = BookingDate.find({listing_id: reqid}).limit(10).lean()
   query.exec()
     .then(results => {
       res.status(200).send(results)

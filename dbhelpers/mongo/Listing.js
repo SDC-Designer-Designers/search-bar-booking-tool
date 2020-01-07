@@ -15,8 +15,8 @@ const listingsSchema = new mongoose.Schema({
   review_number: Number,
   owner: String,
   cleaning_fee: Number, // may need to review this type, original is NUMERIC(10, 2)
-  state: {type: String, index: true},
-  city: {type: String, index: true},
+  state: {type: String},
+  city: {type: String},
   pic: String
 }, {collection: 'listing'})
 
