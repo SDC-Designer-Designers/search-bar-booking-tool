@@ -27,12 +27,12 @@ app.get('/dates/:id', (req, res) => {
     .catch(err => res.status(404).send(err));
 });
 
-app.get('/loaderio-1cb8b327c49d6e2c7f466562857acad8.txt', (req, res) => {
-  if (err) {
-    res.status(404).send(err);
-  }
-  res.status(200).send(loadertxt);
-})
+// app.get('/loaderio-1cb8b327c49d6e2c7f466562857acad8.txt', (req, res) => {
+//   if (err) {
+//     res.status(404).send(err);
+//   }
+//   res.status(200).send(loadertxt);
+// })
 
 app.get('/listings/search', async (req, res) => {
   let results = [];
