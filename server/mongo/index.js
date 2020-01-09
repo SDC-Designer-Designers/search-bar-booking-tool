@@ -6,6 +6,7 @@ const path = require('path');
 const BookingDate = require('../../dbhelpers/mongo/BookingDate.js');
 const Listing = require('../../dbhelpers/mongo/Listing.js');
 const db = require('../../dbhelpers/mongo/connection.js'); // this is required to open the connection to mongo!!
+const loadertxt = require('../../loaderio.txt');
 
 const app = express();
 const port = 3002;
@@ -25,6 +26,13 @@ app.get('/dates/:id', (req, res) => {
     })
     .catch(err => res.status(404).send(err));
 });
+
+app.get('/loaderio-1cb8b327c49d6e2c7f466562857acad8.txt', (req, res) => {
+  if (err) {
+    res.status(404).send(err);
+  }
+  res.status(200).send(loadertxt);
+})
 
 app.get('/listings/search', async (req, res) => {
   let results = [];
