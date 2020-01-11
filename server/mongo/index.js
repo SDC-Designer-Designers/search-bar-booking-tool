@@ -6,10 +6,27 @@ const path = require('path');
 const BookingDate = require('../../dbhelpers/mongo/BookingDate.js');
 const Listing = require('../../dbhelpers/mongo/Listing.js');
 const db = require('../../dbhelpers/mongo/connection.js'); // this is required to open the connection to mongo!!
-// const loadertxt = require('../../loaderio.txt');
+const redis = require('redis');
+const promise = require('bluebird');
+
+promise.config({
+  longStackTraces: true
+});
+
+promise.promisifyAll(redis.RedisClient.prototype);
+promise.promisifyAll(redis.Multi.prototype);
 
 const app = express();
 const port = 3002;
+
+const client = redis.createClient(6379, '127.0.0.1');
+
+client.on('connect', () => {
+  console.log('connected to redis');
+});
+client.on('error', (err) => {
+  console.error(`redis error: ${err}`)
+})
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -27,25 +44,62 @@ app.get('/dates/:id', (req, res) => {
     .catch(err => res.status(404).send(err));
 });
 
-// app.get('/loaderio-1cb8b327c49d6e2c7f466562857acad8.txt', (req, res) => {
-//   if (err) {
-//     res.status(404).send(err);
-//   }
-//   res.status(200).send(loadertxt);
-// })
+/* ----- STANDARD SEARCH QUERY ----- */
+// app.get('/listings/search', async (req, res) => {
+//   let results = [];
+//   await Listing.find({title: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
+//     .then((titles) => {
+//       results.push(titles)
+//       Listing.find({city: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
+//         .then((cities) => {
+//           results.push(cities.slice(0, 10 - results.length))
+//           Listing.find({state: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
+//             .then((states) => {
+//               results.push(states)
+//               res.status(200).send(results[0].concat(results[1].concat(results[2])));
+//             })
+//             .catch((err) => {
+//               console.log('error at states')
+//               res.status(404).send(err)
+//             });
+//         })
+//         .catch((err) => {
+//           console.log('error at cities')
+//           res.status(404).send(err)
+//         });
+//     })
+//     .catch((err) => {
+//       console.log('error at titles')
+//       res.status(404).send(err)
+//     });
+// });
 
+/* ----- SEARCH -> CITY -> STATE -> TITLE W/ REDIS ----- */
 app.get('/listings/search', async (req, res) => {
   let results = [];
-  await Listing.find({title: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
-    .then((titles) => {
-      results.push(titles)
-      Listing.find({city: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
+  console.log(req.query.query)
+  client.get(`listing:${req.query.query}`, async (err, redisResults) => {
+    if (redisResults) {
+      console.log('got from redis')
+      const resultJSON = JSON.parse(redisResults);
+      res.status(200).send(resultJSON);
+    } else {
+      await Listing.find({city: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
         .then((cities) => {
-          results.push(cities.slice(0, 10 - results.length))
+          results.push(cities)
           Listing.find({state: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
             .then((states) => {
-              results.push(states)
-              res.status(200).send(results[0].concat(results[1].concat(results[2])));
+              results.push(states.slice(0, 10 - results.length))
+              Listing.find({title: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
+                .then((titles) => {
+                  results.push(titles)
+                  client.setex(`listing:${req.query.query}`, 3600, JSON.stringify(results[0].concat(results[1].concat(results[2]))));
+                  res.status(200).send(results[0].concat(results[1].concat(results[2])));
+                })
+                .catch((err) => {
+                  console.log('error at titles')
+                  res.status(404).send(err)
+                });
             })
             .catch((err) => {
               console.log('error at states')
@@ -53,15 +107,43 @@ app.get('/listings/search', async (req, res) => {
             });
         })
         .catch((err) => {
-          console.log('error at cities')
+          console.error('error at cities', err)
           res.status(404).send(err)
         });
-    })
-    .catch((err) => {
-      console.log('error at titles')
-      res.status(404).send(err)
-    });
+    }
+  })
 });
+
+/* ----- SEARCH CITY -> STATE -> TITLE W/O REDIS ----- */
+// app.get('/listings/search', async (req, res) => {
+//   let results = [];
+//   await Listing.find({city: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
+//     .then((cities) => {
+//       results.push(cities)
+//       Listing.find({state: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
+//         .then((states) => {
+//           results.push(states.slice(0, 10 - results.length))
+//           Listing.find({title: { $regex: req.query.query, $options: 'i' }}).limit(10).lean()
+//             .then((titles) => {
+//               results.push(titles)
+//               // client.setex(`listing:${req.query.query}`, 3600, JSON.stringify(results[0].concat(results[1].concat(results[2]))));
+//               res.status(200).send(results[0].concat(results[1].concat(results[2])));
+//             })
+//             .catch((err) => {
+//               console.log('error at titles')
+//               res.status(404).send(err)
+//             });
+//         })
+//         .catch((err) => {
+//           console.log('error at states')
+//           res.status(404).send(err)
+//         });
+//     })
+//     .catch((err) => {
+//       console.log('error at cities')
+//       res.status(404).send(err)
+//     });
+// });
 
 app.get('/mlistings/:id', (req, res) => {
   const reqid = parseInt(req.params.id);

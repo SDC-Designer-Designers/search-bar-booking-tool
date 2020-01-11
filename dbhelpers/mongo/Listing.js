@@ -3,8 +3,8 @@ mongoose.Promise = require('bluebird');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const listingsSchema = new mongoose.Schema({
-  id: {type: Number, index: true},
-  title: {type: String, index: true},
+  id: {type: Number},
+  title: {type: String},
   venue_type: String,
   bedrooms: Number,
   bathrooms: Number,
@@ -16,7 +16,7 @@ const listingsSchema = new mongoose.Schema({
   owner: String,
   cleaning_fee: Number, // may need to review this type, original is NUMERIC(10, 2)
   state: {type: String},
-  city: {type: String},
+  city: {type: String, index: true},
   pic: String
 }, {collection: 'listing'})
 
