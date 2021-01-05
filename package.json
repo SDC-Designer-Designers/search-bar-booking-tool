@@ -46,7 +46,7 @@
   "homepage": "https://github.com/liu-austin/al-front-end-capstone#readme",
   "dependencies": {
     "artillery": "^1.6.0-29",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
